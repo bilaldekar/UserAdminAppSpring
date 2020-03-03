@@ -13,7 +13,7 @@ import java.util.List;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/users")
 public class UserController {
 
@@ -35,8 +35,9 @@ public class UserController {
         return userRepo.getOne(id);
     }
 
-    @GetMapping
-    public Users create(@RequestBody final Users user) {
+    @PostMapping
+    public Users create(@RequestBody Users user) {
+        System.out.println("-- "+user.getFirst_name());
         return userRepo.saveAndFlush(user);
     }
 }
