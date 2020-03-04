@@ -57,4 +57,21 @@ public class UserController {
         Users users = userService.saveEntity(usersDTO);
         return new ResponseEntity<UsersDTO>(ObjectMapperUtils.map(users, UsersDTO.class), HttpStatus.CREATED);
     }
+
+    @PutMapping
+    @RequestMapping("/edit/{id}")
+    public ResponseEntity<?> editUser(@Valid @RequestBody UsersDTO usersDTO, @PathVariable("id") Long id, BindingResult result) {
+        System.out.println("---------- "+usersDTO.getFirst_name());
+        if (result.hasErrors()){
+            Map<String,String> errorMap= new HashMap<>();
+
+            for (FieldError error: result.getFieldErrors()) {
+                errorMap.put(error.getField(),error.getDefaultMessage());
+            }
+            return new ResponseEntity<Map<String,String>>(errorMap, HttpStatus.BAD_REQUEST);
+        }
+
+        Users users = userService.editEntity(usersDTO, id);
+        return new ResponseEntity<UsersDTO>(ObjectMapperUtils.map(users, UsersDTO.class), HttpStatus.CREATED);
+    }
 }

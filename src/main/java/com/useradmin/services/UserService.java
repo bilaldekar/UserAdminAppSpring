@@ -5,6 +5,7 @@ import com.useradmin.mapper.ObjectMapperUtils;
 import com.useradmin.models.Users;
 import com.useradmin.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +24,12 @@ public class UserService {
     public Users saveEntity(UsersDTO usersDTO) {
         Users users = ObjectMapperUtils.map(usersDTO, Users.class);
         return userRepo.save(users);
+    }
+
+    public Users editEntity(UsersDTO usersDTO, Long id) {
+        Users existingUser = userRepo.getOne(id);
+        System.out.println("........................ " + existingUser.getFirst_name());
+        BeanUtils.copyProperties(ObjectMapperUtils.map(usersDTO, Users.class), existingUser, "id");
+        return userRepo.saveAndFlush(existingUser);
     }
 }
