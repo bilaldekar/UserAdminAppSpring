@@ -17,6 +17,11 @@ public class UserService {
 
     public List<UsersDTO> findAllByActive(boolean active) {
         List<Users> allByActive = userRepo.findByActive(active);
-        return ObjectMapperUtils.mapAll(allByActive,UsersDTO.class);
+        return ObjectMapperUtils.mapAll(allByActive, UsersDTO.class);
+    }
+
+    public Users saveEntity(UsersDTO usersDTO) {
+        Users users = ObjectMapperUtils.map(usersDTO, Users.class);
+        return userRepo.save(users);
     }
 }
