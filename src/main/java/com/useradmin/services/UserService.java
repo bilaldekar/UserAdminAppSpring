@@ -21,6 +21,15 @@ public class UserService {
         return ObjectMapperUtils.mapAll(allByActive, UsersDTO.class);
     }
 
+    public List<UsersDTO> findByAllAttributes(boolean active, String firstName, String lastName, String userName, String email) {
+        System.out.println("------> "+firstName);
+        System.out.println("------> "+lastName);
+        System.out.println("------> "+userName);
+
+        List<Users> allByActive = userRepo.findByActiveAndFirstNameAndLastNameAndUserNameAndEmail(active,  firstName,  lastName,  userName,  email);
+        return ObjectMapperUtils.mapAll(allByActive, UsersDTO.class);
+    }
+
     public Users saveEntity(UsersDTO usersDTO) {
         Users users = ObjectMapperUtils.map(usersDTO, Users.class);
         return userRepo.save(users);

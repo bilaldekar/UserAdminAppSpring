@@ -33,8 +33,12 @@ public class UserController {
 
     @GetMapping
     @RequestMapping("/all/{active}")
-    public List<UsersDTO> list(@PathVariable("active")  Boolean active) {
-        return userService.findAllByActive(active);
+    public List<UsersDTO> list(@PathVariable("active")  Boolean active,
+                               @PathVariable("firstName") String firstName,
+                               @PathVariable("lastName") String lastName,
+                               @PathVariable("userName") String userName,
+                               @PathVariable("email") String email) {
+        return userService.findByAllAttributes(active,  firstName, lastName,  userName,  email);
     }
 
     @GetMapping
