@@ -58,10 +58,8 @@ public class UserController {
         return new ResponseEntity<UsersDTO>(ObjectMapperUtils.map(users, UsersDTO.class), HttpStatus.CREATED);
     }
 
-    @PutMapping
-    @RequestMapping("/edit/{id}")
+    @PutMapping("/edit/{id}")
     public ResponseEntity<?> editUser(@Valid @RequestBody UsersDTO usersDTO, @PathVariable("id") Long id, BindingResult result) {
-        System.out.println("---------- "+usersDTO.getFirst_name());
         if (result.hasErrors()){
             Map<String,String> errorMap= new HashMap<>();
 

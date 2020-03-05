@@ -28,7 +28,6 @@ public class UserService {
 
     public Users editEntity(UsersDTO usersDTO, Long id) {
         Users existingUser = userRepo.getOne(id);
-        System.out.println("........................ " + existingUser.getFirst_name());
         BeanUtils.copyProperties(ObjectMapperUtils.map(usersDTO, Users.class), existingUser, "id");
         return userRepo.saveAndFlush(existingUser);
     }
