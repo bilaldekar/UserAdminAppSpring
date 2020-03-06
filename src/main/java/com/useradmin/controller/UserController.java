@@ -32,12 +32,18 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    @RequestMapping("/all/{active}")
+    @RequestMapping("/all/{active}/{firstName}/{lastName}/{userName}/{email}")
     public List<UsersDTO> list(@PathVariable("active")  Boolean active,
                                @PathVariable("firstName") String firstName,
                                @PathVariable("lastName") String lastName,
                                @PathVariable("userName") String userName,
                                @PathVariable("email") String email) {
+
+        if(firstName.toString().equals("null")){firstName=null;}
+        if(lastName.toString().equals("null")){lastName=null;}
+        if(userName.toString().equals("null")){userName=null;}
+        if(email.toString().equals("null")){email=null;}
+
         return userService.findByAllAttributes(active,  firstName, lastName,  userName,  email);
     }
 
