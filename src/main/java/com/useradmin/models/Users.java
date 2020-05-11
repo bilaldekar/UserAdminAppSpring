@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity(name = "users")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -14,16 +16,35 @@ public class Users {
     @SequenceGenerator(name = "user_id_seq", initialValue = 1, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_seq")
     private Long id;
+
+    @Size(min = 0, max = 30)
+    @NotNull
     @Column(name = "first_name")
     private String firstName;
+
+    @Size(min = 0, max = 30)
+    @NotNull
     @Column(name = "last_name")
     private String lastName;
+
+    @Size(min = 0, max = 30)
+    @NotNull
     @Column(name = "user_name")
     private String userName;
+
+    @Size(min = 0, max = 50)
     @Column(name = "email")
     private String email;
+
     @Column(name = "active")
     private boolean active;
+
+    /*@JoinTable(name = "user_role", joinColumns = {
+        @JoinColumn(name = "id_user", referencedColumnName = "id")},
+        inverseJoinColumns = {
+                @JoinColumn(name = "id_role", referencedColumnName = "id")})
+@ManyToMany
+private List<Role> roles = new ArrayList();*/
 
     public Users() {
 
