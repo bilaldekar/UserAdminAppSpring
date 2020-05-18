@@ -4,6 +4,7 @@ import com.useradmin.dto.UsersDTO;
 import com.useradmin.mapper.ObjectMapperUtils;
 import com.useradmin.models.Users;
 import com.useradmin.repositories.UserRepository;
+import org.apache.catalina.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,16 @@ public class UserService {
 
     public List<UsersDTO> findByAllAttributes(boolean active, String firstName, String lastName, String userName, String email) {
         List<Users> allByActive = userRepo.findByActiveAndFirstNameAndLastNameAndUserNameAndEmail(active,  firstName,  lastName,  userName,  email);
+
+        /*for(int i =0; i<allByActive.size(); i++){
+            System.out.println("-----> " + allByActive.get(i).getr);
+        }*/
+
         return ObjectMapperUtils.mapAll(allByActive, UsersDTO.class);
+    }
+
+    public UsersDTO getOneUser( Long id){
+        return ObjectMapperUtils.map(userRepo.getOne(id), UsersDTO.class);
     }
 
     public Users saveEntity(UsersDTO usersDTO) {

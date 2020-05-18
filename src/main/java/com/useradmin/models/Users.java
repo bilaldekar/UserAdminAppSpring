@@ -1,12 +1,12 @@
 package com.useradmin.models;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "users")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -39,12 +39,13 @@ public class Users {
     @Column(name = "active")
     private boolean active;
 
-    /*@JoinTable(name = "user_role", joinColumns = {
-        @JoinColumn(name = "id_user", referencedColumnName = "id")},
-        inverseJoinColumns = {
-                @JoinColumn(name = "id_role", referencedColumnName = "id")})
-@ManyToMany
-private List<Role> roles = new ArrayList();*/
+    @ManyToMany
+    @JoinTable(name = "user_role", joinColumns = {
+            @JoinColumn(name = "id_user", referencedColumnName = "id")},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "id_role", referencedColumnName = "id")})
+    @JsonIgnoreProperties("users")
+    private List<Role> roles = new ArrayList();
 
     public Users() {
 
@@ -96,5 +97,13 @@ private List<Role> roles = new ArrayList();*/
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

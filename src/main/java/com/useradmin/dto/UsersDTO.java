@@ -1,14 +1,15 @@
 package com.useradmin.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.useradmin.models.Role;
 import jdk.nashorn.internal.objects.annotations.Getter;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -26,6 +27,9 @@ public class UsersDTO {
     private String email;
     @JsonProperty("userActive")
     private boolean active;
+
+    @JsonProperty("userRoles")
+    private List<RolesDTO> roles = new ArrayList();
 
     public Long getId() {
         return id;
@@ -73,5 +77,13 @@ public class UsersDTO {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public List<RolesDTO> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<RolesDTO> roles) {
+        this.roles = roles;
     }
 }

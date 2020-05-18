@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class UseradminApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(UseradminApplication.class, args);
+
 	}
 
 }
