@@ -30,7 +30,7 @@ public class UserController {
 
     @GetMapping
     @RequestMapping("/all/{active}/{firstName}/{lastName}/{userName}/{email}")
-    public List<UsersDTO> list(@PathVariable("active") Boolean active,
+    public List<Users> list(@PathVariable("active") Boolean active,
                                @PathVariable("firstName") String firstName,
                                @PathVariable("lastName") String lastName,
                                @PathVariable("userName") String userName,
@@ -54,12 +54,12 @@ public class UserController {
 
     @GetMapping
     @RequestMapping("{id}")
-    public UsersDTO get(@PathVariable("id") Long id) {
+    public Users get(@PathVariable("id") Long id) {
         return userService.getOneUser(id);
     }
 
     @PostMapping("/save")
-    public ResponseEntity<?> addUser(@Valid @RequestBody UsersDTO usersDTO, BindingResult result) {
+    public ResponseEntity<?> addUser(@Valid @RequestBody Users users, BindingResult result) {
         //  Un map pour gérer les erreurs
         if (result.hasErrors()) {
             Map<String, String> errorMap = new HashMap<>();
@@ -69,12 +69,12 @@ public class UserController {
             }
             return new ResponseEntity<Map<String, String>>(errorMap, HttpStatus.BAD_REQUEST);
         }
-        Users users = userService.saveEntity(usersDTO);
-        return new ResponseEntity<UsersDTO>(ObjectMapperUtils.map(users, UsersDTO.class), HttpStatus.CREATED);
+        Users usersList = userService.saveEntity(users);
+        return new ResponseEntity<Users>(usersList, HttpStatus.CREATED);
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<?> editUser(@Valid @RequestBody UsersDTO usersDTO, @PathVariable("id") Long id, BindingResult result) {
+    public ResponseEntity<?> editUser(@Valid @RequestBody Users users, @PathVariable("id") Long id, BindingResult result) {
         if (result.hasErrors()) {
             Map<String, String> errorMap = new HashMap<>();
 
@@ -84,7 +84,9 @@ public class UserController {
             return new ResponseEntity<Map<String, String>>(errorMap, HttpStatus.BAD_REQUEST);
         }
 
-        Users users = userService.editEntity(usersDTO, id);
-        return new ResponseEntity<UsersDTO>(ObjectMapperUtils.map(users, UsersDTO.class), HttpStatus.CREATED);
+        Users usersList = userService.editEntity(users, id);
+        return new ResponseEntity<Users>(usersList, HttpStatus.CREATED);
+        //Users users = userService.editEntity(usersDTO, id);
+        //return new ResponseEntity<UsersDTO>(ObjectMapperUtils.map(users, UsersDTO.class), HttpStatus.CREATED);
     }
 }
