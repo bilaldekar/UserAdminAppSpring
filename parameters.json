@@ -1,6 +1,11 @@
 [
   {
-    "param1":  "10100"
-    "param2":  "bilal"
+    "taux_actualisation":  0.05,
+    "taux_progression_salaire":  0.06,
+    "turn_over":  0.1,
+    "age_retraire_h":  60,
+    "age_retraire_f":  55,
+    "proba_vie_h":  0.995,
+    "proba_vie_f":  0.996
   }
 ]
