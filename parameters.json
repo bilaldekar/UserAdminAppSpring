@@ -1,5 +1,6 @@
 [
   {
+<<<<<<< HEAD
     "taux_actualisation":  0.05,
     "taux_progression_salaire":  0.06,
     "turn_over":  0.1,
@@ -7,5 +8,9 @@
     "age_retraire_f":  55,
     "proba_vie_h":  0.995,
     "proba_vie_f":  0.996
+=======
+    "param1":  10100,
+    "param2":  "bilal"
+>>>>>>> 37cf2730f76d41a34a38608bbd7ecb78cf38bacf
   }
 ]
